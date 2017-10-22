@@ -3,6 +3,4 @@ mono: latest
 dotnet: 2.0.0
 dist: trusty
 script:
-  - dotnet --version
-  - pwd
-  - build.sh --verbosity=Diagnostic
+  - sh ./build.sh --verbosity=Diagnostic

@@ -4,4 +4,4 @@ build_script:
     - ps: ./build.ps1 --verbosity=Diagnostic
 test: off
 artifacts:
-    - path: ./artifacts/*
+    - path: ./artifacts/*.nupkg
