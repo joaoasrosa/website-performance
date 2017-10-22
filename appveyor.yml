@@ -1,7 +1,7 @@
 version: 1.0.{build}
 image: Visual Studio 2017
 build_script:
-    - ps: ./build.ps1 --verbosity=Diagnostic
+    - ps: ./build.ps1 --target=Package --verbosity=Diagnostic
 test: off
 artifacts:
     - path: ./artifacts/*.nupkg
