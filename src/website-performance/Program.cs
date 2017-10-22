@@ -20,15 +20,7 @@ namespace website_performance
                         {
                             SetupLogger(arguments.Verbosity);
 
-                            RobotsEntity robots;
-
-                            using (var parseRobotsTxtUseCase = new ParseRobotsTxtUseCase(
-                                arguments.Url,
-                                new HttpMessageHandlerFactory(),
-                                Log.Logger))
-                            {
-                                robots = parseRobotsTxtUseCase.ParseRobotsTxt();
-                            }
+                            RobotsEntity robots = ParseRobots(arguments);
 
                             return 0;
                         }
@@ -56,6 +48,17 @@ namespace website_performance
                     .ConfigureMinimumLevel(verbosity)
                     .WriteTo.Console()
                     .CreateLogger();
+            }
+
+            RobotsEntity ParseRobots(Arguments arguments)
+            {
+                using (var parseRobotsTxtUseCase = new ParseRobotsTxtUseCase(
+                    arguments.Url,
+                    new HttpMessageHandlerFactory(),
+                    Log.Logger))
+                {
+                    return parseRobotsTxtUseCase.ParseRobotsTxt();
+                }
             }
         }
     }
