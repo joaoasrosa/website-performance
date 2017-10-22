@@ -4,4 +4,4 @@ dotnet: 2.0.0
 dist: trusty
 script:
   - dotnet --version
-  - ./build.sh --verbosity-Diagnostic
+  - ./build.sh --verbosity=Diagnostic
