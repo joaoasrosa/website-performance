@@ -3,6 +3,21 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
+    <PackageId>website-performance</PackageId>
+    <PackageVersion>1.0.0-beta</PackageVersion>
+    <AssemblyVersion>1.0.0-beta</AssemblyVersion>
+    <FileVersion>1.0.0-beta</FileVersion>
+    <Version>sha</Version>
+    <Authors>João Rosa</Authors>
+    <Description>Tool to measure a website performance using Google PageSpeed API</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>Alpha</PackageReleaseNotes>
+    <Copyright>Copyright 2017 (c) João Rosa. MIT License.</Copyright>
+    <PackageTags>website-performance google pagespeed</PackageTags>
+    <PackageLicenseUrl>https://github.com/joaoasrosa/website-performance/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/joaoasrosa/website-performance</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/joaoasrosa/website-performance</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.1.1-beta" />
