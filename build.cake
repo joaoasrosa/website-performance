@@ -101,13 +101,15 @@ Task("GitVersion")
 			});
 
 			var file = File(projectPath);
-			XmlPoke(file, "/Project/PropertyGroup/AssemblyVersion", gitVersion.MajorMinorPatch);
-			XmlPoke(file, "/Project/PropertyGroup/FileVersion", gitVersion.MajorMinorPatch);
-			XmlPoke(file, "/Project/PropertyGroup/PackageVersion", gitVersion.MajorMinorPatch);
+			XmlPoke(file, "/Project/PropertyGroup/AssemblyVersion", gitVersion.AssemblySemVer);
+			XmlPoke(file, "/Project/PropertyGroup/FileVersion", gitVersion.AssemblySemVer);
+			XmlPoke(file, "/Project/PropertyGroup/PackageVersion", gitVersion.NuGetVersionV2);
 			XmlPoke(file, "/Project/PropertyGroup/Version", gitVersion.FullSemVer);
 
 			Verbose("Full SemVer: " + gitVersion.FullSemVer);
-			Verbose("Major Minor Patch: " + gitVersion.MajorMinorPatch);
+			Verbose("Full Build Metadata: " + gitVersion.FullBuildMetaData);
+			Verbose("Assembly SemVer: " + gitVersion.AssemblySemVer);
+			Verbose("NuGetVersionV2: " + gitVersion.NuGetVersionV2);
 		}
 		catch(Exception ex)
 		{
@@ -120,9 +122,15 @@ Task("Build")
     .Description("Builds the solution.")
     .IsDependentOn("GitVersion")
     .Does(() => {
+        var msBuildSettings = new DotNetCoreMSBuildSettings()
+        {
+            TreatAllWarningsAs = MSBuildTreatAllWarningsAs.Error
+        };
+    
 		var settings = new DotNetCoreBuildSettings
 		{
-			Configuration = configuration
+			Configuration = configuration,
+			MSBuildSettings = msBuildSettings
 		};
 
         DotNetCoreBuild(solutionPath, settings);

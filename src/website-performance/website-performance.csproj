@@ -4,10 +4,10 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <PackageId>website-performance</PackageId>
-    <PackageVersion>1.0.0-beta</PackageVersion>
-    <AssemblyVersion>1.0.0-beta</AssemblyVersion>
-    <FileVersion>1.0.0-beta</FileVersion>
-    <Version>sha</Version>
+    <PackageVersion>1.0.0-rc0001</PackageVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Version>1.0.0-rc.1</Version>
     <Authors>João Rosa</Authors>
     <Description>Tool to measure a website performance using Google PageSpeed API</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -22,7 +22,6 @@
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.1.1-beta" />
     <PackageReference Include="Google.Apis.Pagespeedonline.v1" Version="1.29.2.703" />
-    <PackageReference Include="Microsoft.NETCore.App" Version="2.0.0" />
     <PackageReference Include="Serilog" Version="2.5.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.0" />
   </ItemGroup>
