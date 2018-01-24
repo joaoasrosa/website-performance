@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CommandLine;
 using Serilog;
 using Serilog.Events;
@@ -20,15 +21,30 @@ namespace website_performance
                         {
                             SetupLogger(arguments.Verbosity);
 
-                            RobotsEntity robots = ParseRobots(arguments);
+                            var robots = ParseRobots(arguments);
+                            var sitemaps = ParseSitemaps(robots);
+
+                            if (arguments.Warmup)
+                            {
+                                ExecuteWarmup(sitemaps);
+                            }
+                            else
+                            {
+                                arguments.Validate();
+                                ExecutePerformanceTest(
+                                    sitemaps,
+                                    arguments.Directory,
+                                    arguments.ApiKey,
+                                    arguments.ApplicationName);
+                            }
 
                             return 0;
                         }
                         catch (Exception e)
                         {
-                            if(Log.Logger == null)
+                            if (Log.Logger == null)
                                 SetupLogger(LogEventLevel.Error.ToString());
-                            
+
                             Log.Logger.Error(e, e.Message);
                             return 1;
                         }
@@ -59,6 +75,31 @@ namespace website_performance
                 {
                     return parseRobotsTxtUseCase.ParseRobotsTxt();
                 }
+            }
+
+            IReadOnlyCollection<SitemapEntity> ParseSitemaps(RobotsEntity robots)
+            {
+                var parseSitemapUseCase = new ParseSitemapUseCase(new HttpMessageHandlerFactory(), Log.Logger);
+                return parseSitemapUseCase.ParseSitemaps(robots);
+            }
+
+            void ExecuteWarmup(IReadOnlyCollection<SitemapEntity> sitemaps)
+            {
+                var executeWarmupUseCase = new ExecuteWarmupUseCase(
+                    new HttpMessageHandlerFactory(), 
+                    Log.Logger);
+                executeWarmupUseCase.ExecuteWarmup(sitemaps);
+            }
+
+            void ExecutePerformanceTest(
+                IReadOnlyCollection<SitemapEntity> sitemaps,
+                string directory,
+                string apiKey,
+                string applicationName)
+            {
+                var executePerformanceTestUseCase =
+                    new ExecutePerformanceTestUseCase(Log.Logger, directory, apiKey, applicationName);
+                executePerformanceTestUseCase.ExecutePerformanceTest(sitemaps);
             }
         }
     }

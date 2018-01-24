@@ -41,7 +41,7 @@ namespace website_performance.UseCases
 
             using (var stream = _httpClient.GetStreamAsync(_robotsUrl).Result)
             {
-                robots = new RobotsEntity();
+                robots = new RobotsEntity(_robotsUrl);
 
                 using (var streamReader = new StreamReader(stream))
                 {
