@@ -31,5 +31,11 @@ namespace website_performance.Entities
                 throw new UriFormatException($"Fail to parse URL \"{sitemapUrl}\"");
             }
         }
+
+        // New code
+        public void GeneratePerformanceReport()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
