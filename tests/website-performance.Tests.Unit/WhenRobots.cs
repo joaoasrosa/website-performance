@@ -7,10 +7,10 @@ namespace website_performance.Tests.Unit
     public class WhenRobots
     {
         [Fact]
-        public void GivenInvalidRobots_ThenInvalidRobotsFileEvent()
+        public void GivenRobotsWithNoSitemap_ThenRobotsDoesNotContainSitemapsEvent()
         {
-            var invalidRobotsUrl = Given.A.InvalidRobots.Url;
-            var invalidHttpMessageHandlerFactory = Given.A.InvalidRobots.HttpMessageHandler;
+            var invalidRobotsUrl = Given.A.Robots.WithNoSitemaps.Url;
+            var invalidHttpMessageHandlerFactory = Given.A.Robots.WithNoSitemaps.HttpMessageHandler;
 
             var robots = new Robots(
                 invalidRobotsUrl,
@@ -19,7 +19,7 @@ namespace website_performance.Tests.Unit
 
             var invalidRobotsFile = Record.Exception(() => robots.GeneratePerformanceReport());
 
-            invalidRobotsFile.Should().BeOfType<InvalidRobotsFile>();
+            invalidRobotsFile.Should().BeOfType<RobotsDoesNotContainSitemaps>();
         }
     }
 }

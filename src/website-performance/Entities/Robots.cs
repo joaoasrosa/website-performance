@@ -8,8 +8,9 @@ namespace website_performance.Entities
 {
     public class Robots
     {
-        private readonly List<Uri> _sitemaps = new List<Uri>();
+        private readonly List<Uri> _sitemapsList = new List<Uri>();
         private readonly HttpClient _httpClient;
+        private readonly Sitemaps _sitemaps; 
 
         public Robots(string url)
         {
@@ -29,18 +30,20 @@ namespace website_performance.Entities
                 Url = robotsUrl;
             else
                 throw new UriFormatException($"Fail to parse URL \"{url}\"");
+            
+            _sitemaps = new Sitemaps();
         }
 
         public Uri Url { get; }
 
-        public IReadOnlyCollection<Uri> Sitemaps => _sitemaps;
+        public IReadOnlyCollection<Uri> Sitemaps => _sitemapsList;
 
         public void AddSitemap(string sitemapUrl)
         {
             if (Uri.TryCreate(sitemapUrl, UriKind.Absolute, out var sitemap))
             {
-                if (_sitemaps.Contains(sitemap) == false)
-                    _sitemaps.Add(sitemap);
+                if (_sitemapsList.Contains(sitemap) == false)
+                    _sitemapsList.Add(sitemap);
             }
             else
             {
@@ -65,12 +68,12 @@ namespace website_performance.Entities
                         var sitemapStrings = line.Split("Sitemap:", StringSplitOptions.RemoveEmptyEntries);
                         var sitemap = sitemapStrings.SingleOrDefault();
 
-
+                        _sitemaps.AddSitemap(sitemap);
                     }
                 }
             }
-            
-            // what else?
+
+            _sitemaps.GeneratePerformanceReport();
         }
     }
 }

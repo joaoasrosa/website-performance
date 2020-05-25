@@ -13,6 +13,16 @@ namespace website_performance.Entities
             _pages = new List<Uri>();
         }
 
+        private Sitemap(string url)
+        {
+            if (Uri.TryCreate(url, UriKind.Absolute, out var sitemapUrl))
+                Url = sitemapUrl;
+            else
+                throw new UriFormatException($"Fail to parse URL \"{url}\"");
+            
+            _pages = new List<Uri>();
+        }
+
         public Uri Url { get; }
 
         public IReadOnlyCollection<Uri> Pages => _pages;
@@ -29,5 +39,7 @@ namespace website_performance.Entities
                 throw new UriFormatException($"Fail to parse URL \"{page}\"");
             }
         }
+        
+        public static implicit operator Sitemap(string sitemapUrl) => new Sitemap(sitemapUrl);
     }
 }

@@ -11,28 +11,32 @@ namespace website_performance.Tests.Unit
     {
         internal static class A
         {
-            internal static class InvalidRobots
+            internal static class Robots
             {
-
-                private static readonly string _invalidRobots = "Garbage all together.";
-                
-                internal static string Url => "https://www.joaorosa.io/robots.txt";
-                internal static HttpMessageHandler HttpMessageHandler => new HttpMessageHandlerStub(HandleWithOkStatus(Url, _invalidRobots));
-
-                private static Func<HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>>
-                    HandleWithOkStatus(
-                        string requestUri,
-                        string serializedObject
-                    )
+                internal static class WithNoSitemaps
                 {
-                    return (message, token) => Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+                    private static readonly string _robotsWithNoSitemap = "Garbage all together.";
+
+                    internal static string Url => "https://www.joaorosa.io/robots.txt";
+
+                    internal static HttpMessageHandler HttpMessageHandler =>
+                        new HttpMessageHandlerStub(HandleWithOkStatus(Url, _robotsWithNoSitemap));
+
+                    private static Func<HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>>
+                        HandleWithOkStatus(
+                            string requestUri,
+                            string serializedObject
+                        )
                     {
-                        Content = new StringContent(serializedObject),
-                        RequestMessage = new HttpRequestMessage
+                        return (message, token) => Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
                         {
-                            RequestUri = new Uri(requestUri)
-                        }
-                    });
+                            Content = new StringContent(serializedObject),
+                            RequestMessage = new HttpRequestMessage
+                            {
+                                RequestUri = new Uri(requestUri)
+                            }
+                        });
+                    }
                 }
             }
         }

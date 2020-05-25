@@ -2,7 +2,7 @@ using System;
 
 namespace website_performance
 {
-    public class InvalidRobotsFile : Exception
+    public class RobotsDoesNotContainSitemaps : Exception
     {
     }
 }
