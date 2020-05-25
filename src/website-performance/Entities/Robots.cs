@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net.Http;
 
 namespace website_performance.Entities
 {
     public class Robots
     {
-        private readonly HttpMessageHandler _httpMessageHandler;
         private readonly List<Uri> _sitemaps = new List<Uri>();
+        private readonly HttpClient _httpClient;
 
         public Robots(string url)
         {
@@ -19,7 +21,9 @@ namespace website_performance.Entities
         
         public Robots(string url, HttpMessageHandler httpMessageHandler)
         {
-            _httpMessageHandler = httpMessageHandler ?? throw new ArgumentNullException(nameof(httpMessageHandler));
+            _httpClient = httpMessageHandler == null
+                ? throw new ArgumentNullException(nameof(httpMessageHandler))
+                : new HttpClient(httpMessageHandler);
             
             if (Uri.TryCreate(url, UriKind.Absolute, out var robotsUrl))
                 Url = robotsUrl;
@@ -47,7 +51,26 @@ namespace website_performance.Entities
         // New code
         public void GeneratePerformanceReport()
         {
-            throw new NotImplementedException();
+            using (var stream = _httpClient.GetStreamAsync(Url).Result)
+            {
+                using (var streamReader = new StreamReader(stream))
+                {
+
+                    while (streamReader.Peek() >= 0)
+                    {
+                        var line = streamReader.ReadLine();
+                        if (!line.StartsWith("Sitemap:"))
+                            continue;
+
+                        var sitemapStrings = line.Split("Sitemap:", StringSplitOptions.RemoveEmptyEntries);
+                        var sitemap = sitemapStrings.SingleOrDefault();
+
+
+                    }
+                }
+            }
+            
+            // what else?
         }
     }
 }
