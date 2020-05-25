@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace website_performance.Entities
 {
-    public class SitemapEntity
+    public class Sitemap
     {
         private readonly List<Uri> _pages;
 
-        public SitemapEntity(Uri url)
+        public Sitemap(Uri url)
         {
             Url = url;
             _pages = new List<Uri>();

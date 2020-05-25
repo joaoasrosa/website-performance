@@ -22,7 +22,7 @@ namespace website_performance.UseCases
             _logger = logger;
         }
 
-        public void ExecuteWarmup(IReadOnlyCollection<SitemapEntity> sitemaps)
+        public void ExecuteWarmup(IReadOnlyCollection<Sitemap> sitemaps)
         {
             _logger.Debug("Starting the warmup for {sitemapsCount} sitemap(s).",
                 sitemaps.Count);
@@ -33,7 +33,7 @@ namespace website_performance.UseCases
             _logger.Debug("Finished the warmup for {sitemapsCount} sitemap(s).",
                 sitemaps.Count);
 
-            void ExecuteWarmupForSitemap(SitemapEntity sitemap)
+            void ExecuteWarmupForSitemap(Sitemap sitemap)
             {
                 _logger.Debug("Starting parse sitemap from \"{sitemapUrl}\".", sitemap.Url);
 

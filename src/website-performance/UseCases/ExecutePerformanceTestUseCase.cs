@@ -21,7 +21,7 @@ namespace website_performance.UseCases
             _applicationName = applicationName;
         }
 
-        public void ExecutePerformanceTest(IReadOnlyCollection<SitemapEntity> sitemaps)
+        public void ExecutePerformanceTest(IReadOnlyCollection<Sitemap> sitemaps)
         {
             _logger.Debug("Starting the Google Page Speed performance test for {sitemapsCount} sitemap(s).",
                 sitemaps.Count);
@@ -38,7 +38,7 @@ namespace website_performance.UseCases
             _logger.Debug("Finished the Google Page Speed performance test for {sitemapsCount} sitemap(s).",
                 sitemaps.Count);
 
-            void ExecutePerformanceTestForSitemap(SitemapEntity sitemap)
+            void ExecutePerformanceTestForSitemap(Sitemap sitemap)
             {
                 foreach (var page in sitemap.Pages)
                 {

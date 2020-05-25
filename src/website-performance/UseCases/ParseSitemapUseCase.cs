@@ -27,11 +27,11 @@ namespace website_performance.UseCases
         }
 
 
-        public IReadOnlyCollection<SitemapEntity> ParseSitemaps(Robots robots)
+        public IReadOnlyCollection<Sitemap> ParseSitemaps(Robots robots)
         {
             _logger.Debug("Starting parse sitemaps from {robotsUrl}.", robots.Url);
 
-            var sitemaps = new ConcurrentBag<SitemapEntity>();
+            var sitemaps = new ConcurrentBag<Sitemap>();
 
             var tasks = robots
                 .Sitemaps
@@ -46,11 +46,11 @@ namespace website_performance.UseCases
 
             return sitemaps;
 
-            SitemapEntity ParseSitemap(Uri url)
+            Sitemap ParseSitemap(Uri url)
             {
                 _logger.Debug("Starting parse sitemap from \"{sitemapUrl}.\"", url);
 
-                var sitemap = new SitemapEntity(url);
+                var sitemap = new Sitemap(url);
 
                 using (var httpClient = new HttpClient(_httpMessageHandlerFactory.Get()))
                 {

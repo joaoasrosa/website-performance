@@ -77,13 +77,13 @@ namespace website_performance
                 }
             }
 
-            IReadOnlyCollection<SitemapEntity> ParseSitemaps(Robots robots)
+            IReadOnlyCollection<Sitemap> ParseSitemaps(Robots robots)
             {
                 var parseSitemapUseCase = new ParseSitemapUseCase(new HttpMessageHandlerFactory(), Log.Logger);
                 return parseSitemapUseCase.ParseSitemaps(robots);
             }
 
-            void ExecuteWarmup(IReadOnlyCollection<SitemapEntity> sitemaps)
+            void ExecuteWarmup(IReadOnlyCollection<Sitemap> sitemaps)
             {
                 var executeWarmupUseCase = new ExecuteWarmupUseCase(
                     new HttpMessageHandlerFactory(), 
@@ -92,7 +92,7 @@ namespace website_performance
             }
 
             void ExecutePerformanceTest(
-                IReadOnlyCollection<SitemapEntity> sitemaps,
+                IReadOnlyCollection<Sitemap> sitemaps,
                 string directory,
                 string apiKey,
                 string applicationName)
