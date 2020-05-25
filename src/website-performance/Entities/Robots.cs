@@ -51,7 +51,6 @@ namespace website_performance.Entities
             }
         }
 
-        // New code
         public void GeneratePerformanceReport()
         {
             using (var stream = _httpClient.GetStreamAsync(Url).Result)
