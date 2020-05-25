@@ -10,8 +10,12 @@ namespace website_performance.Tests.Unit
         public void GivenInvalidRobots_ThenInvalidRobotsFileEvent()
         {
             var invalidRobotsUrl = Given.A.InvalidRobots.Url;
+            var invalidHttpMessageHandlerFactory = Given.A.InvalidRobots.HttpMessageHandler;
 
-            var robots = new Robots(invalidRobotsUrl);
+            var robots = new Robots(
+                invalidRobotsUrl,
+                invalidHttpMessageHandlerFactory
+            );
 
             var invalidRobotsFile = Record.Exception(() => robots.GeneratePerformanceReport());
 

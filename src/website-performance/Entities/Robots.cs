@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using website_performance.Infrastructure;
+using System.Net.Http;
 
 namespace website_performance.Entities
 {
     public class Robots
     {
-        private readonly IHttpMessageHandlerFactory _httpMessageHandlerFactory;
+        private readonly HttpMessageHandler _httpMessageHandler;
         private readonly List<Uri> _sitemaps = new List<Uri>();
 
         public Robots(string url)
@@ -17,9 +17,9 @@ namespace website_performance.Entities
                 throw new UriFormatException($"Fail to parse URL \"{url}\"");
         }
         
-        public Robots(string url, IHttpMessageHandlerFactory httpMessageHandlerFactory)
+        public Robots(string url, HttpMessageHandler httpMessageHandler)
         {
-            _httpMessageHandlerFactory = httpMessageHandlerFactory ?? throw new ArgumentNullException(nameof(httpMessageHandlerFactory));
+            _httpMessageHandler = httpMessageHandler ?? throw new ArgumentNullException(nameof(httpMessageHandler));
             
             if (Uri.TryCreate(url, UriKind.Absolute, out var robotsUrl))
                 Url = robotsUrl;
