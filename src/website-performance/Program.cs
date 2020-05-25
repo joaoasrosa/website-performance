@@ -21,22 +21,21 @@ namespace website_performance
                         {
                             SetupLogger(arguments.Verbosity);
 
-                            var robots = ParseRobots(arguments);
-                            var sitemaps = ParseSitemaps(robots);
-
-                            if (arguments.Warmup)
-                            {
-                                ExecuteWarmup(sitemaps);
-                            }
-                            else
-                            {
-                                arguments.Validate();
-                                ExecutePerformanceTest(
-                                    sitemaps,
-                                    arguments.Directory,
-                                    arguments.ApiKey,
-                                    arguments.ApplicationName);
-                            }
+//                            var sitemaps = ParseSitemaps(robots);
+//
+//                            if (arguments.Warmup)
+//                            {
+//                                ExecuteWarmup(sitemaps);
+//                            }
+//                            else
+//                            {
+//                                arguments.Validate();
+//                                ExecutePerformanceTest(
+//                                    sitemaps,
+//                                    arguments.Directory,
+//                                    arguments.ApiKey,
+//                                    arguments.ApplicationName);
+//                            }
 
                             return 0;
                         }
@@ -66,17 +65,7 @@ namespace website_performance
                     .CreateLogger();
             }
 
-            Robots ParseRobots(Arguments arguments)
-            {
-                using (var parseRobotsTxtUseCase = new ParseRobotsTxtUseCase(
-                    arguments.Url,
-                    new HttpMessageHandlerFactory(),
-                    Log.Logger))
-                {
-                    return parseRobotsTxtUseCase.ParseRobotsTxt();
-                }
-            }
-
+            
             IReadOnlyCollection<Sitemap> ParseSitemaps(Robots robots)
             {
                 var parseSitemapUseCase = new ParseSitemapUseCase(new HttpMessageHandlerFactory(), Log.Logger);

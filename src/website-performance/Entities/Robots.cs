@@ -11,14 +11,6 @@ namespace website_performance.Entities
         private readonly List<Uri> _sitemapsList = new List<Uri>();
         private readonly HttpClient _httpClient;
         private readonly Sitemaps _sitemaps; 
-
-        public Robots(string url)
-        {
-            if (Uri.TryCreate(url, UriKind.Absolute, out var robotsUrl))
-                Url = robotsUrl;
-            else
-                throw new UriFormatException($"Fail to parse URL \"{url}\"");
-        }
         
         public Robots(string url, HttpMessageHandler httpMessageHandler)
         {
