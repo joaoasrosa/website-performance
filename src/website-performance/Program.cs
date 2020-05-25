@@ -66,7 +66,7 @@ namespace website_performance
                     .CreateLogger();
             }
 
-            RobotsEntity ParseRobots(Arguments arguments)
+            Robots ParseRobots(Arguments arguments)
             {
                 using (var parseRobotsTxtUseCase = new ParseRobotsTxtUseCase(
                     arguments.Url,
@@ -77,7 +77,7 @@ namespace website_performance
                 }
             }
 
-            IReadOnlyCollection<SitemapEntity> ParseSitemaps(RobotsEntity robots)
+            IReadOnlyCollection<SitemapEntity> ParseSitemaps(Robots robots)
             {
                 var parseSitemapUseCase = new ParseSitemapUseCase(new HttpMessageHandlerFactory(), Log.Logger);
                 return parseSitemapUseCase.ParseSitemaps(robots);

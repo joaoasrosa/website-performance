@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace website_performance.Entities
 {
-    public class RobotsEntity
+    public class Robots
     {
         private readonly List<Uri> _sitemaps = new List<Uri>();
 
-        public RobotsEntity(string url)
+        public Robots(string url)
         {
             if (Uri.TryCreate(url, UriKind.Absolute, out var robotsUrl))
                 Url = robotsUrl;

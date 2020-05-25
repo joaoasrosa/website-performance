@@ -33,15 +33,15 @@ namespace website_performance.UseCases
             _httpClient?.Dispose();
         }
 
-        public RobotsEntity ParseRobotsTxt()
+        public Robots ParseRobotsTxt()
         {
             _logger.Debug("Starting parse robots.txt from {robotsUrl}.", _robotsUrl);
 
-            RobotsEntity robots = null;
+            Robots robots = null;
 
             using (var stream = _httpClient.GetStreamAsync(_robotsUrl).Result)
             {
-                robots = new RobotsEntity(_robotsUrl);
+                robots = new Robots(_robotsUrl);
 
                 using (var streamReader = new StreamReader(stream))
                 {

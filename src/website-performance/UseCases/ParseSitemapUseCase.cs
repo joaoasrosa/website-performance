@@ -27,7 +27,7 @@ namespace website_performance.UseCases
         }
 
 
-        public IReadOnlyCollection<SitemapEntity> ParseSitemaps(RobotsEntity robots)
+        public IReadOnlyCollection<SitemapEntity> ParseSitemaps(Robots robots)
         {
             _logger.Debug("Starting parse sitemaps from {robotsUrl}.", robots.Url);
 
