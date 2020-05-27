@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Value;
 
 namespace website_performance.Entities
 {
-    public class Sitemap
+    public class Sitemap : ValueType<Sitemap>
     {
         private readonly List<Uri> _pages;
 
@@ -19,7 +20,7 @@ namespace website_performance.Entities
                 Url = sitemapUrl;
             else
                 throw new UriFormatException($"Fail to parse URL \"{url}\"");
-            
+
             _pages = new List<Uri>();
         }
 
@@ -39,7 +40,17 @@ namespace website_performance.Entities
                 throw new UriFormatException($"Fail to parse URL \"{page}\"");
             }
         }
-        
+
         public static implicit operator Sitemap(string sitemapUrl) => new Sitemap(sitemapUrl);
+
+        internal void GeneratePerformanceReport()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override IEnumerable<object> GetAllAttributesToBeUsedForEquality()
+        {
+            return new[] {Url};
+        }
     }
 }

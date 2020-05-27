@@ -66,30 +66,30 @@ namespace website_performance
             }
 
             
-            IReadOnlyCollection<Sitemap> ParseSitemaps(Robots robots)
-            {
-                var parseSitemapUseCase = new ParseSitemapUseCase(new HttpMessageHandlerFactory(), Log.Logger);
-                return parseSitemapUseCase.ParseSitemaps(robots);
-            }
-
-            void ExecuteWarmup(IReadOnlyCollection<Sitemap> sitemaps)
-            {
-                var executeWarmupUseCase = new ExecuteWarmupUseCase(
-                    new HttpMessageHandlerFactory(), 
-                    Log.Logger);
-                executeWarmupUseCase.ExecuteWarmup(sitemaps);
-            }
-
-            void ExecutePerformanceTest(
-                IReadOnlyCollection<Sitemap> sitemaps,
-                string directory,
-                string apiKey,
-                string applicationName)
-            {
-                var executePerformanceTestUseCase =
-                    new ExecutePerformanceTestUseCase(Log.Logger, directory, apiKey, applicationName);
-                executePerformanceTestUseCase.ExecutePerformanceTest(sitemaps);
-            }
+//            IReadOnlyCollection<Sitemap> ParseSitemaps(Robots robots)
+//            {
+//                var parseSitemapUseCase = new ParseSitemapUseCase(new HttpMessageHandlerFactory(), Log.Logger);
+//                return parseSitemapUseCase.ParseSitemaps(robots);
+//            }
+//
+//            void ExecuteWarmup(IReadOnlyCollection<Sitemap> sitemaps)
+//            {
+//                var executeWarmupUseCase = new ExecuteWarmupUseCase(
+//                    new HttpMessageHandlerFactory(), 
+//                    Log.Logger);
+//                executeWarmupUseCase.ExecuteWarmup(sitemaps);
+//            }
+//
+//            void ExecutePerformanceTest(
+//                IReadOnlyCollection<Sitemap> sitemaps,
+//                string directory,
+//                string apiKey,
+//                string applicationName)
+//            {
+//                var executePerformanceTestUseCase =
+//                    new ExecutePerformanceTestUseCase(Log.Logger, directory, apiKey, applicationName);
+//                executePerformanceTestUseCase.ExecutePerformanceTest(sitemaps);
+//            }
         }
     }
 }

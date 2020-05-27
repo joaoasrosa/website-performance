@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Net.Http;
-using System.Xml;
 using Serilog;
 using website_performance.Entities;
 using website_performance.Infrastructure;
